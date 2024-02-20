@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Source') {
             steps {
-                git 'https://github.com/mdjawad0/Ecommerce-React-AWS.git'
+                git 'https://github.com/saii123lalitha/ecommerce.git'
                 sh "npm install"
                 echo 'Source Stage Finished'
             }
