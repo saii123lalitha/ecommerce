@@ -31,6 +31,7 @@ pipeline {
         stage('Dockerize') {
             steps {
                 script {
+                    sh "sudo systemctl start docker"
                     sh "docker stop ${CONTAINER_NAME} || true"
                     sh "docker rm ${CONTAINER_NAME} || true"
                 }
