@@ -31,6 +31,8 @@ pipeline {
         stage('Dockerize') {
             steps {
                 script {
+                    //sudo systemctl status jenkins
+                    
                     sh "docker stop ${CONTAINER_NAME} || true"
                     sh "docker rm ${CONTAINER_NAME} || true"
                 }
