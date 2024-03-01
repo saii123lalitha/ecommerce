@@ -1,21 +1,21 @@
-# Use official node image as the base image
-FROM node:16 as build
+# Stage 1: Build the Node.js application
+FROM node:16 AS build
 
-# Set the working directory as app
-WORKDIR /usr/local/app
+WORKDIR /usr/src/app
 
-# Add the source code to app
-COPY ./ /usr/local/app/
-
-# Install the dependencies
+COPY package*.json ./
 RUN npm install
 
-# Use official nginx image as the base image
+COPY . .
+RUN npm run build
+
+# Stage 2: Serve the built application with Nginx
 FROM nginx:latest
 
-# Copy the build output for nginx contents
-COPY --from=build /usr/local/app/dist /usr/share/nginx/html
+COPY --from=build /usr/src/app/build /usr/share/nginx/html
 
-# Expose port 80
+COPY nginx.conf /etc/nginx/nginx.conf
+
 EXPOSE 80
 
+CMD ["nginx", "-g", "daemon off;"]
