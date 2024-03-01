@@ -12,7 +12,7 @@ RUN npm run build
 # Stage 2: Serve the built application with Nginx
 FROM nginx:latest
 
-COPY --from=build /usr/src/app/build /usr/share/nginx/html
+COPY --from=build /usr/src/app/dist /usr/share/nginx/html
 
 COPY nginx.conf /etc/nginx/nginx.conf
 
