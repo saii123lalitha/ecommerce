@@ -4,7 +4,7 @@ pipeline {
     environment {
         DOCKER_IMAGE = "ecommerce"
         CONTAINER_NAME = "myapp"
-        ELASTIC_IP = "35.168.30.13"
+        PORT = "80"
     }
     stages {
         stage('Source') {
@@ -44,8 +44,8 @@ pipeline {
                     // Build Docker image
                     sh "docker build -t ${DOCKER_IMAGE} ."
 
-                    // Run Docker container in detached mode with the Elastic IP passed as environment variable
-                    sh "docker run -d -p 5173:5173 --name ${CONTAINER_NAME} -e BACKEND_IP=${ELASTIC_IP} ${DOCKER_IMAGE}"
+                    // Run Docker container in detached mode
+                    sh "docker run -d -p ${PORT}:80 --name ${CONTAINER_NAME} ${DOCKER_IMAGE}"
                 }
                 echo 'Deploy Stage Finished'
             }

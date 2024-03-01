@@ -1,17 +1,21 @@
-# Use official node image as the base image for building
-FROM node:16
+# Use official node image as the base image
+FROM node:16 as build
 
 # Set the working directory as app
-WORKDIR /usr/src/app
+WORKDIR /usr/local/app
 
 # Add the source code to app
-COPY . .
+COPY ./ /usr/local/app/
 
 # Install the dependencies
 RUN npm install
 
-# Expose port 5173
-EXPOSE 5173
+# Use official nginx image as the base image
+FROM nginx:latest
 
-# Run npm start in the background
-CMD ["npm", "start"]
+# Copy the build output for nginx contents
+COPY --from=build /usr/local/app/dist /usr/share/nginx/html
+
+# Expose port 80
+EXPOSE 80
+
