@@ -10,9 +10,10 @@ COPY ./ /usr/local/app/
 # Install the dependencies
 RUN npm install
 
-# Command to start the application
-CMD ["npm", "start"]
+
+# Copy the build output for nginx contents
+COPY --from=build /usr/local/app/dist /usr/share/nginx/html
 
 # Expose port 80
-EXPOSE 5173
+EXPOSE 80
 
