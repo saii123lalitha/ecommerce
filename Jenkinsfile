@@ -4,7 +4,6 @@ pipeline {
     environment {
         DOCKER_IMAGE = "ecommerce"
         CONTAINER_NAME = "myapp"
-        PORT = "80"
     }
     stages {
         stage('Source') {
@@ -45,7 +44,7 @@ pipeline {
                     sh "docker build -t ${DOCKER_IMAGE} ."
 
                     // Run Docker container in detached mode
-                    sh "docker run -d -p ${PORT}:80 --name ${CONTAINER_NAME} ${DOCKER_IMAGE}"
+                    sh "docker run -d -p 5173:5173 --name ${CONTAINER_NAME} ${DOCKER_IMAGE}"
                 }
                 echo 'Deploy Stage Finished'
             }
