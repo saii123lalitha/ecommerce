@@ -15,7 +15,7 @@ FROM nginx:latest
 
 # Copy the build output for nginx contents
 COPY --from=build /usr/local/app/dist /usr/share/nginx/html
-
+COPY nginx.conf /etc/nginx/nginx.conf
 # Expose port 80
 EXPOSE 80
 
