@@ -10,6 +10,8 @@ COPY ./ /usr/local/app/
 # Install the dependencies
 RUN npm install
 
+# Use official nginx image as the base image
+FROM nginx:latest
 
 # Copy the build output for nginx contents
 COPY --from=build /usr/local/app/dist /usr/share/nginx/html
